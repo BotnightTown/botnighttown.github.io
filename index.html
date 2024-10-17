@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <main>
+    <section>
+      <article>
+        <div id="user">
+          <p id="userName" class="name"></p>
+          <input type="text" id="userScore" disabled>
+          <div id="userNum" class="card"></div>
+        </div>
+        <button type="button" id="generateBtn">
+          Почати гру
+        </button>
+        <div id="computer">
+          <p id="computerName" class="name">
+            Комп'ютер
+          </p>
+          <input type="text" id="computerScore" disabled>
+          <div id="computerNum" class="card"></div>
+        </div>
+      </article>
+      <div id="result"></div>
+    </section>
+  </main>
+
+  <div id="modal" class="modal">
+    <div class="modal-content" id="modal-content">
+        <h3>Уведіть ваше ім'я.</h3>
+        <p>Воно буде використовуватися у грі</p>
+        <input type="text" id="inputName" size="15" maxlength="15"><br>
+        <button id="closeButton">Прийняти</button>
+    </div>
+  </div>
+
+<script src="main.js"></script>
+</body>
+</html>
