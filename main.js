@@ -96,11 +96,6 @@ const cards = [
   },
 ];
 function game(){
-  // Блокування кнопки генерації
-  generateBtn.disabled = true;
-  setTimeout(() => {
-    generateBtn.disabled = false
-  }, 1000);
 
   // Звертання до карт
   let userCard = document.getElementById('userCard');
@@ -147,6 +142,19 @@ function game(){
   // Зміна картинки карти
   userCard.src = randPictureUser;
   computerCard.src = randPictureComputer;  
+
+  if(userScore === 21 || (userScore < 21 && computerScore > 21)){
+    resultDiv.innerHTML = "Ви перемогли!"
+    generateBtn.disabled = true;
+  }
+  if(computerScore === 21 || (userScore > 21 && computerScore < 21)){
+    resultDiv.innerHTML = "Комп'ютер переміг!"
+    generateBtn.disabled = true;
+  }
+  if((userScore === 21 && computerScore === 21) || (userScore > 21 && computerScore > 21)){
+    resultDiv.innerHTML = "Нічия"
+    generateBtn.disabled = true;
+  }
 }
 
 document.addEventListener('DOMContentLoaded', function() {
@@ -156,19 +164,27 @@ document.addEventListener('DOMContentLoaded', function() {
 document.getElementById("closeButton").addEventListener('click', closeModal);
 
 generateBtn.addEventListener("click", game)
-document.addEventListener('keypress', function(event) {
-  if (event.key === 'Enter') {
+
+let isGameBlocked = false; 
+
+document.addEventListener('keydown', function(event) {
+  if (event.key === 'Enter' && !isGameBlocked) {
     if (!modal.classList.contains('hidden')) {
       closeModal();
     } else {
       game();
+      isGameBlocked = true;
+      generateBtn.disabled = true;
     }
   }
 });
 
-
-// generateBtn.disabled = true;
-// setTimeout(() => {generateBtn.disabled = false}, 1000);
+document.addEventListener('keyup', function(event) {
+  if (event.key === 'Enter' && isGameBlocked) {
+      isGameBlocked = false;
+      generateBtn.disabled = false
+  }
+});
 
 function closeModal(){
   modal.classList.add('hidden'); 
@@ -176,6 +192,6 @@ function closeModal(){
   setTimeout(()=>{modal.remove()}, 1000);
   userName.textContent = inputName.value;
   if(!inputName.value || text.trim() === ""){
-    userName.textContent = "Не людина"
+    userName.textContent = "АвтоматІНАТОР"
   }
 }
